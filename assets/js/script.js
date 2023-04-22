@@ -2,20 +2,23 @@
 const bars = document.getElementById("menu-btn");
 const toggleClass = document.querySelector(".toggler");
 const toggleBtnIcon = document.querySelector('.toggle-btn i')
+const toggle = document.querySelector('.toggle');
 
-bars.addEventListener("click",()=>{
-     toggleClass.classList.toggle("toggle");
-     const isOpen = toggleClass.classList.contains('toggle');
+bars.addEventListener("click", () => {
+    toggleClass.classList.toggle("toggle");
+    const isOpen = toggleClass.classList.contains('toggle');
 
-     toggleBtnIcon.classList = isOpen ? 'fa-solid fa-xmark menu-btn' : 'fa-solid fa-bars menu-btn'
+    toggleBtnIcon.classList = isOpen ? 'fa-solid fa-xmark menu-btn' : 'fa-solid fa-bars menu-btn'
 })
 
 const navLink = document.querySelectorAll('.nav__link');
 
 const linkAction = () => {
-    const navMenu = document.querySelector('.toggler')
     // when we click on each nav__link, we remove the show-menu
-    navMenu.classList.remove('toggle')
+    toggleClass.classList.remove('toggle')
+    if (!toggle) {
+        toggleBtnIcon.classList = 'fa-solid fa-bars menu-btn';
+    }
 }
 navLink.forEach(n => n.addEventListener('click', linkAction));
 
@@ -32,18 +35,18 @@ let inputData = "";
 let page = 1;
 
 
-async function searchImages(){
+async function searchImages() {
     inputData = searchInputEl.value;
     const url = `https://api.unsplash.com/search/photos?page=${page}&query=${inputData}&client_id=${accessKey}`;
     const response = await fetch(url);
     const data = await response.json();
-    if(page === 1){
+    if (page === 1) {
         searchResultsEl.innerHTML = "";
     }
 
     const results = data.results
 
-    results.map((result)=>{
+    results.map((result) => {
         const imageWrapper = document.createElement("div");
         imageWrapper.classList.add("search-result");
         const image = document.createElement("img");
@@ -58,21 +61,21 @@ async function searchImages(){
         imageWrapper.appendChild(imageLink);
         searchResultsEl.appendChild(imageWrapper);
     });
-    
+
     page++;
 
-    if(page > 1){
+    if (page > 1) {
         showMoreButtonEl.style.display = "block";
     }
 }
 
-formEl.addEventListener("submit", (e)=>{
+formEl.addEventListener("submit", (e) => {
     e.preventDefault();
     page = 1;
     searchImages();
 });
 
-showMoreButtonEl.addEventListener("click", ()=>{
+showMoreButtonEl.addEventListener("click", () => {
     searchImages();
 })
 
