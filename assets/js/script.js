@@ -1,3 +1,4 @@
+// navbar satrt
 const bars = document.getElementById("menu-btn");
 const toggleClass = document.querySelector(".toggler");
 const toggleBtnIcon = document.querySelector('.toggle-btn i')
@@ -8,6 +9,17 @@ bars.addEventListener("click",()=>{
 
      toggleBtnIcon.classList = isOpen ? 'fa-solid fa-xmark menu-btn' : 'fa-solid fa-bars menu-btn'
 })
+
+const navLink = document.querySelectorAll('.nav__link');
+
+const linkAction = () => {
+    const navMenu = document.querySelector('.toggler')
+    // when we click on each nav__link, we remove the show-menu
+    navMenu.classList.remove('toggle')
+}
+navLink.forEach(n => n.addEventListener('click', linkAction));
+
+// navbar end
 
 const accessKey = "KwjW2lnHfLQKj1hgomPTWPwsmJQ5Z_3yshYjnt25QWA";
 
